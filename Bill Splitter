@@ -1,0 +1,40 @@
+import random
+
+print('Enter the number of friends joining (including you): ')
+friends = int(input())
+journal = []
+
+def Yes():
+    friends_join = len(journal)
+    ran = random.randint(1, friends_join)
+    join_l = journal[ran - 1]
+    print(f'{join_l} is the lucky one!')
+
+    journal_l = dict.fromkeys(journal)
+    del journal_l[join_l]
+    del_dinner_l = round(total / len(journal_l), 2)
+    dinner_l = dict.fromkeys(journal_l, del_dinner_l)
+    dinner_l[join_l] = 0
+    print(dinner_l)
+
+if friends > 0:
+    print('Enter the name of every friend (including you), each on a new line: ')
+    for friend in range(friends + 1):
+        if friend > 0:
+            join = input()
+            journal.append(join)
+    print('Enter the total bill value:')
+    total = int(input())
+
+
+    print('Do you want to use the "Who is lucky?" feature? Write Yes/No:')
+    inp = input()
+    if inp == 'Yes':
+        Yes()
+    elif inp == 'No':
+        del_dinner = round(total / len(journal), 2)
+        dinner = dict.fromkeys(journal, del_dinner)
+        print('No one is going to be lucky')
+        print(dinner)
+else:
+    print('No one is joining for the party')
