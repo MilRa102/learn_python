@@ -1,0 +1,46 @@
+import random
+
+words = random.choice(["python", "java", "swift", "javascript"])
+hidden_answer = list(len(words) * '-')
+attempts = 8
+typed = ""
+games = ['play', 'results', 'exit']
+survived = 0
+lost = 0
+
+print("H A N G M A N\n")
+game = input('Type "play" to play the game, "results" to show the scoreboard, and "exit" to quit: ')
+while game != games[2]:
+    if game == games[0]:
+        hidden_answer = list(len(words) * '-')
+        attempts = 8
+        typed = ""
+        while attempts > 0 and hidden_answer != list(words):
+            guess = input(f"{''.join(hidden_answer)}\nInput a letter: \n")
+            if len(guess) != 1:
+                print("Please, input a single letter.\n")
+                continue
+            elif not (guess.islower() and guess.isalpha()):
+                print("Please, enter a lowercase letter from the English alphabet.\n")
+                continue
+            if guess in typed:
+                print("You've already guessed this letter.\n")
+            elif guess in words:
+                for check in range(len(words)):
+                    if words[check] == guess:
+                        hidden_answer[check] = guess
+            else:
+                print("That letter doesn't appear in the word.\n")
+                attempts -= 1
+            typed += guess
+        if hidden_answer == list(words):
+            survived += 1
+            print(f"""You guessed the word {words}!\nYou survived!""")
+        else:
+            lost += 1
+            print("You lost!")
+        game = input('Type "play" to play the game, "results" to show the scoreboard, and "exit" to quit: ')
+    if game == games[1]:
+        print(f'You won: {survived} times')
+        print(f'You lost: {lost} times')
+        game = input('Type "play" to play the game, "results" to show the scoreboard, and "exit" to quit: ')
